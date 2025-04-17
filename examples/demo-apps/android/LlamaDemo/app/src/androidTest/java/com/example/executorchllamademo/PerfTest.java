@@ -66,13 +66,16 @@ public class PerfTest implements LlmCallback {
   }
 
   @Override
-  public void onStats(String result) throws JSONException {
-    JSONObject jsonObject = new JSONObject(result);
-    int numGeneratedTokens = jsonObject.getInt("num_generated_tokens");
-    int inferenceEndMs = jsonObject.getInt("inference_end_ms");
-    int promptEvalEndMs = jsonObject.getInt("prompt_eval_end_ms");
-    float tps = (float) numGeneratedTokens / (inferenceEndMs - promptEvalEndMs) * 1000;
-    tokensPerSecond.add(tps);
+  public void onStats(String result) {
+    try {
+      JSONObject jsonObject = new JSONObject(result);
+      int numGeneratedTokens = jsonObject.getInt("num_generated_tokens");
+      int inferenceEndMs = jsonObject.getInt("inference_end_ms");
+      int promptEvalEndMs = jsonObject.getInt("prompt_eval_end_ms");
+      float tps = (float) numGeneratedTokens / (inferenceEndMs - promptEvalEndMs) * 1000;
+      tokensPerSecond.add(tps);
+    } catch (JSONException e) {
+    }
   }
 
   private void report(final String metric, final Float value) {

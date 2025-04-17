@@ -81,7 +81,7 @@ public class LlmBenchmarkActivity extends Activity implements ModelRunnerCallbac
   public void onTokenGenerated(String token) {}
 
   @Override
-  public void onStats(String result) {
+  public void onStats(String stats) {
     float tps = 0;
     try {
       JSONObject jsonObject = new JSONObject(stats);
