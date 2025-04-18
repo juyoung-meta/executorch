@@ -1119,6 +1119,8 @@ def _load_llama_model(
         calibration_seq_length=calibration_seq_length,
         calibration_data=calibration_data,
         tokenizer_path=tokenizer_path,
+        use_legacy_export=args.qnn,
+        save_exported_program=args.export_only,
         verbose=verbose,
         metadata=_load_llama_model_metadata(
             weight_type,
@@ -1139,7 +1141,6 @@ def _load_llama_model(
             model.vocab_size,
             metadata_str,
         ),
-        args=args,
     )
 
 
